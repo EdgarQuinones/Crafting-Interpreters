@@ -23,6 +23,8 @@ struct Node {
     char *data;
 };
 
+void insert(struct Node *newNode, struct Node **headNode);
+
 int main() {
     printf("hello, world!\n"); // Part 1, done
 
@@ -128,3 +130,4 @@ int main() {
 
     return 0;
 }
+
