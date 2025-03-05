@@ -84,18 +84,47 @@ int main() {
     
     // 3 pointers, at 8 bytes each is 24 bytes 
     printf("Node size: %d bytes\n",(int)sizeof(struct Node));
+    char *string1 = "Hello";
+    char *string2 = "World!";
+    char *string3 = "UM!";
 
     struct Node *nodeA = (struct Node *) malloc(sizeof(struct Node));
     struct Node *nodeB = (struct Node *) malloc(sizeof(struct Node));
+    struct Node *nodeC = (struct Node *) malloc(sizeof(struct Node));
 
-    char *string1 = "Hello";
-
+    // setting up nodes 
+    //A
     nodeA->data = (char*) malloc(sizeof(char) * (strlen(string1) + 1));
     strcpy(nodeA->data, string1);
-    printf("Data: %s\n", nodeA->data);
+    nodeA->nextNode = nodeB;
+    nodeB->previousNode = nodeA;
+    //B
+    nodeB->data = (char*) malloc(sizeof(char) * (strlen(string2) + 1));
+    strcpy(nodeB->data, string2);
+    nodeB->nextNode = nodeC;
+    nodeC->previousNode = nodeB;
+    //C
+    nodeC->data = (char*) malloc(sizeof(char) * (strlen(string3) + 1));
+    strcpy(nodeC->data, string3);
+    
+    // Print the strings stored in each node
+    printf("Node A data: %s\n", nodeA->data);
+    printf("Node B data: %s\n", nodeB->data);
+    printf("Node C data: %s\n", nodeC->data);
 
+    //Testing if they are linked.
+    char* aStr = nodeC->previousNode->previousNode->data;
+    printf("This should be 'Hello', actual answer: %s\n", aStr);
+
+    //free the items inside the struct pointers
+    free(nodeA->data);
+    free(nodeB->data);
+    free(nodeC->data);
+
+    // free the struct pointers 
     free(nodeA);
     free(nodeB);
+    free(nodeC);
 
     return 0;
 }
